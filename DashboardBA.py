@@ -123,9 +123,9 @@ with col2:
     store_sales = data.groupby('Magasin').agg(
         Total_ventes=('Montant', 'sum'),
         Nb_transactions=('Quantite', 'nunique')
-    ).reset_index().properties(
+    ).properties(
         title="Ventes totales et nombre de transactions par magasin"
-    )
+    ).reset_index()
     
     # Afficher le tableau sur Streamlit
     st.table(store_sales)
