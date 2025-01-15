@@ -78,7 +78,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-col1, col2 = st.columns([0.5,0.4],gap="large")
+col1, col2 = st.columns(2)
 # Charger les données
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 with col1:
