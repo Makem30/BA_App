@@ -1,5 +1,5 @@
-# import streamlit as st
-# import pandas as pd
+import streamlit as st
+import pandas as pd
 # data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
 # Calculer le total des ventes
