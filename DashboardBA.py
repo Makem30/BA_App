@@ -90,7 +90,7 @@ daily_sales = data.groupby(['Date_Transaction', 'Magasin'])['Montant'].sum().res
 chart = alt.Chart(daily_sales).mark_line().encode(
     x='Date_Transaction:T',
     y='Montant:Q',
-    color='Store:N'
+    color='Magasin:N'
 ).properties(
     title='Ventes quotidiennes de tous les magasins',
     width=800,
