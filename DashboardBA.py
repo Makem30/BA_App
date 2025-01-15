@@ -78,13 +78,13 @@ with col4:
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
 
 # Obtenir la liste des magasins
-stores = data['store'].unique()
+stores = data['Magasin'].unique()
 
 # Sélection du magasin dans la sidebar
 selected_store = st.sidebar.selectbox('Sélectionnez un magasin', stores)
 
 # Filtrer les données pour le magasin sélectionné
-filtered_data = data[data['store'] == selected_store]
+filtered_data = data[data['Magasin'] == selected_store]
 
 # Grouper les données par date et calculer les ventes totales quotidiennes
 daily_sales = filtered_data.groupby('date')['sales'].sum().reset_index()
