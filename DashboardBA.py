@@ -35,8 +35,7 @@ st.markdown(
 )
 
 # Afficher les KPI dans les carrés
-# col1, col2, col3, col4 = st.columns(4)
-col1, col2 = st.columns(2)
+col1, col2, col3, col4 = st.columns(4)
 
 
 with col1:
@@ -45,19 +44,19 @@ with col1:
         unsafe_allow_html=True,
     )
 
-# with col2:
+with col2:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">Montant moyen par transaction</div><div class="metric-value">{montant_moyen_transaction:.2f} €</div></div>',
         unsafe_allow_html=True,
     )
 
-with col2:
+with col3:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">Satisfaction client moyenne</div><div class="metric-value">{satisfaction_client_moyenne:.2f}</div></div>',
         unsafe_allow_html=True,
     )
 
-# with col4:
+with col4:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">total_ventes</div><div class="metric-value">{total_ventes:.2f}</div></div>',
         unsafe_allow_html=True,
@@ -82,9 +81,9 @@ import altair as alt
 col1, col2 = st.columns(2)
 # Charger les données
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
-with col1:
-    # Convertir la colonne 'Date_Transaction' en datetime
-    data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
+
+ # Convertir la colonne 'Date_Transaction' en datetime
+ data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
     
     # Grouper les données par date et magasin, puis calculer le total des ventes
     daily_sales = data.groupby(['Date_Transaction', 'Magasin'])['Montant'].sum().reset_index()
@@ -98,12 +97,12 @@ with col1:
         title='Ventes quotidiennes de tous les magasins',
         width=800,
         height=400
-    )
+    )   
     
     # Afficher le graphique sur Streamlit
-    st.altair_chart(chart, use_container_width=True)
+    st.altair_chart(chart, use_container_width=True)   
 #------------------------------------------------------------------------------
-with col2:
+
     # Calculer le total des ventes par magasin
     sales_by_store = data.groupby('Magasin')['Montant'].sum().reset_index()
     
