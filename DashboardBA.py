@@ -12,6 +12,7 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 nombre_total_transactions = len(data)
 montant_moyen_transaction = data['Montant'].mean()
 satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
+total_ventes = data['Montant'].sum()
 
 # # Afficher les KPI dans Streamlit
 # col1, col2, col3, col4 = st.columns([1.5,2,1.5,1.5], gap="large")  # Créer 3 colonnes pour afficher les KPI côte à côte
@@ -54,7 +55,7 @@ st.markdown(
 )
 
 # Afficher les KPI dans les carrés
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 
 with col1:
     st.markdown(
@@ -74,6 +75,11 @@ with col3:
         unsafe_allow_html=True,
     )
 
+with col4:
+    st.markdown(
+        f'<div class="metric-container"><div class="metric-label">total_ventes</div><div class="metric-value">{total_ventes:.2f}</div></div>',
+        unsafe_allow_html=True,
+    )
 #-------------------------------------------------------------------------------------------
 import streamlit as st
 import pandas as pd
