@@ -3,15 +3,15 @@ import pandas as pd
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
 # Calculer le total des ventes
-total_ventes = data['Montant'].sum()
+# total_ventes = data['Montant'].sum()
 
 # Afficher le KPI dans Streamlit
 
 #-----------------------------------------------------------------------------------------------
 # Calculer les KPI
-# nombre_total_transactions = len(data)
-# montant_moyen_transaction = data['Montant'].mean()
-# satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
+nombre_total_transactions = len(data)
+montant_moyen_transaction = data['Montant'].mean()
+satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
 
 # # Afficher les KPI dans Streamlit
 # col1, col2, col3, col4 = st.columns([1.5,2,1.5,1.5], gap="large")  # Créer 3 colonnes pour afficher les KPI côte à côte
