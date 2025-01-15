@@ -76,5 +76,10 @@ with col4:
 st.subheader("Ventes quotidiennes") 
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction']) 
 ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum().reset_index() 
-fig_ventes_quotidiennes = px.line(ventes_quotidiennes, x='Date_Transaction', y='Montant', title='Ventes quotidiennes') st.plotly_chart(fig_ventes_quotidiennes)
-st.plotly_chart(fig_ventes_quotidiennes)
+chart_ventes_quotidiennes = alt.Chart(ventes_quotidiennes).mark_line().encode( 
+    x='Date_Transaction:T', 
+    y='Montant:Q' 
+).properties( 
+    title='Ventes quotidiennes' 
+) 
+st.altair_chart(chart_ventes_quotidiennes, use_container_width=True)
