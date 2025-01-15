@@ -73,6 +73,8 @@ with col4:
 #-------------------------------------------------------------------------------------
 
 # Graphique des ventes quotidiennes 
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+
 st.subheader("Ventes quotidiennes") 
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction']) 
 ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum().reset_index() 
