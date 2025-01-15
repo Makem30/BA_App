@@ -16,13 +16,13 @@ st.markdown(
     .metric-container {
         background-color: #ffff; /* Bleu */
         border: none; /* Supprimer la bordure */
-        padding: 30px;
+        padding: 20px;
         border-radius: 5px;
         color: black; /* Texte blanc */
         text-align: center; /* Centrer le texte */
     }
     .metric-label {
-        font-size: 18px;
+        font-size: 10px;
         font-weight: bold;
     }
     .metric-value {
