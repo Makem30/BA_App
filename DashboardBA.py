@@ -84,7 +84,7 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
 
 # Grouper les données par date et magasin, puis calculer le total des ventes
-daily_sales = data.groupby(['Date_Transaction', 'Store'])['Montant'].sum().reset_index()
+daily_sales = data.groupby(['Date_Transaction', 'Magasin'])['Montant'].sum().reset_index()
 
 # Créer le graphique avec Altair
 chart = alt.Chart(daily_sales).mark_line().encode(
