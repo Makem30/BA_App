@@ -120,7 +120,7 @@ with col1:
 
 with col2:
     # Grouper les données par magasin et calculer les ventes totales et le nombre de transactions
-    store_sales = data.groupby('Store').agg(
+    store_sales = data.groupby('Magasin').agg(
         Total_ventes=('Montant', 'sum'),
         Nb_transactions=('Transaction_ID', 'nunique')
     ).reset_index()
