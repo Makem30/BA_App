@@ -87,7 +87,7 @@ selected_store = st.sidebar.selectbox('Sélectionnez un magasin', stores)
 filtered_data = data[data['Magasin'] == selected_store]
 
 # Grouper les données par date et calculer les ventes totales quotidiennes
-daily_sales = filtered_data.groupby('date')['sales'].sum().reset_index()
+daily_sales = filtered_data.groupby('Date_Transaction')['sales'].sum().reset_index()
 
 # Créer le graphique en courbe
 st.line_chart(daily_sales, x='date', y='sales')
