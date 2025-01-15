@@ -75,7 +75,7 @@ with col4:
 
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+import altair as alt
 
 # Charger les données
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
@@ -83,25 +83,19 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 # Convertir la colonne 'Date_Transaction' en datetime
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
 
-# Liste des magasins uniques
-magasins = data['Store'].unique()
+# Grouper les données par date et magasin, puis calculer le total des ventes
+daily_sales = data.groupby(['Date_Transaction', 'Store'])['Montant'].sum().reset_index()
 
-# Sélection du magasin sur la sidebar
-selected_magasin = st.sidebar.selectbox('Sélectionnez un magasin', magasins)
-
-# Filtrer les données pour le magasin sélectionné
-filtered_data = data[data['Store'] == selected_magasin]
-
-# Grouper les données par date et calculer le total des ventes pour chaque jour
-daily_sales = filtered_data.groupby('Date_Transaction')['Montant'].sum()
-
-# Créer le graphique
-fig, ax = plt.subplots()
-ax.plot(daily_sales.index, daily_sales.values)
-ax.set_xlabel('Date')
-ax.set_ylabel('Ventes')
-ax.set_title(f'Ventes quotidiennes pour le magasin {selected_magasin}')
-ax.grid(True)
+# Créer le graphique avec Altair
+chart = alt.Chart(daily_sales).mark_line().encode(
+    x='Date_Transaction:T',
+    y='Montant:Q',
+    color='Store:N'
+).properties(
+    title='Ventes quotidiennes de tous les magasins',
+    width=800,
+    height=400
+)
 
 # Afficher le graphique sur Streamlit
-st.pyplot(fig)
+st.altair_chart(chart, use_container_width=True)
