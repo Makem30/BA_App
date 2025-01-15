@@ -1,6 +1,6 @@
 # import streamlit as st
 # import pandas as pd
-data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+# data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
 # Calculer le total des ventes
 # total_ventes = data['Montant'].sum()
@@ -36,7 +36,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Charger les données
-data = pd.read_csv('data_dashboard_large.csv')
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
 # Titre du dashboard
 st.title("Dashboard Interactif des Performances de l'Entreprise")
