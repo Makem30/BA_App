@@ -74,15 +74,20 @@ with col4:
 #-------------------------------------------------------------------------------------
 
 # Graphique des ventes quotidiennes 
-data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+# Convertir la colonne 'date' en datetime
+data['date'] = pd.to_datetime(data['date'])
 
-st.subheader("Ventes quotidiennes") 
-data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction']) 
-ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum().reset_index() 
-chart_ventes_quotidiennes = alt.Chart(ventes_quotidiennes).mark_line().encode( 
-    x='Date_Transaction:T', 
-    y='Montant:Q' 
-).properties( 
-    title='Ventes quotidiennes' 
-) 
-st.altair_chart(chart_ventes_quotidiennes, use_container_width=True)
+# Obtenir la liste des magasins
+stores = data['store'].unique()
+
+# Sélection du magasin dans la sidebar
+selected_store = st.sidebar.selectbox('Sélectionnez un magasin', stores)
+
+# Filtrer les données pour le magasin sélectionné
+filtered_data = data[data['store'] == selected_store]
+
+# Grouper les données par date et calculer les ventes totales quotidiennes
+daily_sales = filtered_data.groupby('date')['sales'].sum().reset_index()
+
+# Créer le graphique en courbe
+st.line_chart(daily_sales, x='date', y='sales')
