@@ -16,7 +16,7 @@ st.markdown(
     .metric-container {
         background-color: #ffff; /* Bleu */
         border: none; /* Supprimer la bordure */
-        padding: 10px;
+        padding: 30px;
         border-radius: 5px;
         color: black; /* Texte blanc */
         text-align: center; /* Centrer le texte */
