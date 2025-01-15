@@ -18,7 +18,7 @@ col1, col2, col3, col4 = st.columns(4)  # Créer 3 colonnes pour afficher les KP
 
 
 with col1:
-    st.metric(label="Nombre total de transactions", value=nombre_total_transactions)
+    st.metric(label="Nombre /n total de transactions", value=nombre_total_transactions)
 
 with col2:
     st.metric(label="Montant moyen par transaction", value=f"{montant_moyen_transaction:.2f} €")
