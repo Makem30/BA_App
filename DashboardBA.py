@@ -129,7 +129,7 @@ with col2:
     st.table(store_sales)
 #-----------------------------------------------------------------------
 # Liste des catégories de produits uniques
-categories = data['Category'].unique()
+categories = data['Categorie_Produit'].unique()
 
 # Sélection de la catégorie sur la sidebar
 selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
