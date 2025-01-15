@@ -61,13 +61,19 @@ with col4:
     ) 
 #-------------------------------------------------------------------------------------------
 # Convertir la colonne 'date' en datetime
-data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+# data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
-data['date'] = pd.to_datetime(data['date'])
+# data['date'] = pd.to_datetime(data['date'])
 
-# Grouper les données par date et calculer les ventes totales quotidiennes
-daily_sales = data.groupby('date')['sales'].sum().reset_index()
+# # Grouper les données par date et calculer les ventes totales quotidiennes
+# daily_sales = data.groupby('date')['sales'].sum().reset_index()
 
-# Créer le graphique en courbe
-st.line_chart(daily_sales, x='date', y='sales')
+# # Créer le graphique en courbe
+# st.line_chart(daily_sales, x='date', y='sales')
 #-------------------------------------------------------------------------------------
+
+# Graphique des ventes quotidiennes 
+st.subheader("Ventes quotidiennes") 
+data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction']) 
+ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum().reset_index() 
+fig_ventes_quotidiennes = px.line(ventes_quotidiennes, x='Date_Transaction', y='Montant', title='Ventes quotidiennes') st.plotly_chart(fig_ventes_quotidiennes)
