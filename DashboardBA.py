@@ -180,10 +180,10 @@ chart = alt.Chart(category_sales).mark_bar().encode(
 st.altair_chart(chart, use_container_width=True)
 #-----------------------------------------------------------------------------------
 # Grouper par catégorie et produit, puis calculer la quantité vendue
-product_sales = data.groupby(['Categorie_Produit', 'Montant'])['Quantite'].sum().reset_index()
+product_sales = data.groupby(['Categorie_Produit'])['Quantite'].sum().reset_index()
 
 # Trier par quantité vendue et obtenir le top 5 pour chaque catégorie
-top_products = product_sales.groupby('Quantite').apply(
+top_products = product_sales.groupby('Categorie_Produit').apply(
     lambda x: x.sort_values('Quantite', ascending=False).head(5)
 ).reset_index(drop=True)
 
