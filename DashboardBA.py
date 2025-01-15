@@ -14,11 +14,11 @@ st.markdown(
     """
     <style>
     .metric-container {
-        background-color: #007bff; /* Bleu */
+        background-color: #ffff; /* Bleu */
         border: none; /* Supprimer la bordure */
         padding: 20px;
         border-radius: 5px;
-        color: white; /* Texte blanc */
+        color: black; /* Texte blanc */
         text-align: center; /* Centrer le texte */
     }
     .metric-label {
