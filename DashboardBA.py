@@ -75,6 +75,7 @@ with col4:
 
 # Graphique des ventes quotidiennes 
 # Convertir la colonne 'date' en datetime
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 data['date'] = pd.to_datetime(data['date'])
 
 # Obtenir la liste des magasins
