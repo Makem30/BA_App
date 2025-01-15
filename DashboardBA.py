@@ -127,3 +127,28 @@ with col2:
     
     # Afficher le tableau sur Streamlit
     st.table(store_sales)
+#-----------------------------------------------------------------------
+# Liste des catégories de produits uniques
+categories = data['Category'].unique()
+
+# Sélection de la catégorie sur la sidebar
+selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
+
+# Filtrer les données pour la catégorie sélectionnée
+filtered_data = data[data['Categorie_Produit'] == selected_category]
+
+# Grouper les données par produit et calculer la quantité vendue
+product_sales = filtered_data.groupby('Categorie_Produit')['Quantity'].sum().reset_index()
+
+# Créer l'histogramme avec Altair
+chart = alt.Chart(product_sales).mark_bar().encode(
+    x='Categorie_Produit:N',
+    y='Quantity:Q'
+).properties(
+    title=f"Quantité vendue par produit pour la catégorie {selected_category}",
+    width=800,
+    height=400
+)
+
+# Afficher le graphique sur Streamlit
+st.altair_chart(chart, use_container_width=True)
