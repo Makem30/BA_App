@@ -83,24 +83,24 @@ import altair as alt
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
  # Convertir la colonne 'Date_Transaction' en datetime
- data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
+data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
     
     # Grouper les données par date et magasin, puis calculer le total des ventes
-    daily_sales = data.groupby(['Date_Transaction', 'Magasin'])['Montant'].sum().reset_index()
+daily_sales = data.groupby(['Date_Transaction', 'Magasin'])['Montant'].sum().reset_index()
     
     # Créer le graphique avec Altair
-    chart = alt.Chart(daily_sales).mark_line().encode(
-        x='Date_Transaction:T',
-        y='Montant:Q',
-        color='Magasin:N'
-    ).properties(
-        title='Ventes quotidiennes de tous les magasins',
-        width=800,
-        height=400
-    )   
+chart = alt.Chart(daily_sales).mark_line().encode(
+    x='Date_Transaction:T',
+    y='Montant:Q',
+    color='Magasin:N'
+).properties(
+    title='Ventes quotidiennes de tous les magasins',
+    width=800,
+    height=400
+)   
     
     # Afficher le graphique sur Streamlit
-    st.altair_chart(chart, use_container_width=True)   
+st.altair_chart(chart, use_container_width=True)   
 #------------------------------------------------------------------------------
 col1, col2 = st.columns(2)
 with col1:
