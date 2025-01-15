@@ -100,3 +100,17 @@ chart = alt.Chart(daily_sales).mark_line().encode(
 
 # Afficher le graphique sur Streamlit
 st.altair_chart(chart, use_container_width=True)
+#------------------------------------------------------------------------------
+# Calculer le total des ventes par magasin
+sales_by_store = data.groupby('Magasin')['Montant'].sum().reset_index()
+
+# Créer le graphique en secteurs avec Altair
+chart = alt.Chart(sales_by_store).mark_arc().encode(
+    theta="Montant:Q",
+    color="Store:N"
+).properties(
+    title="Répartition des ventes par magasin"
+)
+
+# Afficher le graphique sur Streamlit
+st.altair_chart(chart, use_container_width=True)
