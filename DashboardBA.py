@@ -9,9 +9,9 @@ import pandas as pd
 
 #-----------------------------------------------------------------------------------------------
 # Calculer les KPI
-# nombre_total_transactions = len(data)
-# montant_moyen_transaction = data['Montant'].mean()
-# satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
+nombre_total_transactions = len(data)
+montant_moyen_transaction = data['Montant'].mean()
+satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
 
 # # Afficher les KPI dans Streamlit
 # col1, col2, col3, col4 = st.columns([1.5,2,1.5,1.5], gap="large")  # Créer 3 colonnes pour afficher les KPI côte à côte
@@ -29,7 +29,50 @@ import pandas as pd
 # with col4:
 #     st.metric(label="Total des ventes", value=f"{total_ventes:.2f} €")
 #-----------------------------------------------------------------------------------------
+st.markdown(
+    """
+    <style>
+    .metric-container {
+        background-color: #007bff; /* Bleu */
+        border: none; /* Supprimer la bordure */
+        padding: 20px;
+        border-radius: 5px;
+        color: white; /* Texte blanc */
+        text-align: center; /* Centrer le texte */
+    }
+    .metric-label {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .metric-value {
+        font-size: 24px;
+        margin-top: 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
+# Afficher les KPI dans les carrés
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown(
+        f'<div class="metric-container"><div class="metric-label">Nombre total de transactions</div><div class="metric-value">{nombre_total_transactions}</div></div>',
+        unsafe_allow_html=True,
+    )
+
+with col2:
+    st.markdown(
+        f'<div class="metric-container"><div class="metric-label">Montant moyen par transaction</div><div class="metric-value">{montant_moyen_transaction:.2f} €</div></div>',
+        unsafe_allow_html=True,
+    )
+
+with col3:
+    st.markdown(
+        f'<div class="metric-container"><div class="metric-label">Satisfaction client moyenne</div><div class="metric-value">{satisfaction_client_moyenne:.2f}</div></div>',
+        unsafe_allow_html=True,
+    )
 
 #-------------------------------------------------------------------------------------------
 import streamlit as st
