@@ -184,7 +184,7 @@ product_sales = data.groupby(['Categorie_Produit'])['Quantite'].sum().reset_inde
 
 # Trier par quantité vendue et obtenir le top 5 pour chaque catégorie
 top_products = product_sales.groupby('Categorie_Produit').apply(
-    lambda x: x.sort_values('Quantite', ascending=False).head(5)
+    lambda x: x.sort_values('Quantite', ascending=False).head(6)
 ).reset_index(drop=True)
 
 # Afficher le tableau sur Streamlit
