@@ -60,4 +60,12 @@ with col4:
         unsafe_allow_html=True,
     ) 
 #-------------------------------------------------------------------------------------------
+# Convertir la colonne 'date' en datetime
+data['date'] = pd.to_datetime(data['date'])
 
+# Grouper les données par date et calculer les ventes totales quotidiennes
+daily_sales = data.groupby('date')['sales'].sum().reset_index()
+
+# Créer le graphique en courbe
+st.line_chart(daily_sales, x='date', y='sales')
+#-------------------------------------------------------------------------------------
