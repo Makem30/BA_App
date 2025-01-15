@@ -138,12 +138,12 @@ selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produi
 filtered_data = data[data['Categorie_Produit'] == selected_category]
 
 # Grouper les données par produit et calculer la quantité vendue
-product_sales = filtered_data.groupby('Categorie_Produit')['Quantity'].sum().reset_index()
+product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
 
 # Créer l'histogramme avec Altair
 chart = alt.Chart(product_sales).mark_bar().encode(
     x='Categorie_Produit:N',
-    y='Quantity:Q'
+    y='Quantite:Q'
 ).properties(
     title=f"Quantité vendue par produit pour la catégorie {selected_category}",
     width=800,
