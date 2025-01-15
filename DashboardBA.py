@@ -14,7 +14,7 @@ montant_moyen_transaction = data['Montant'].mean()
 satisfaction_client_moyenne = data['Satisfaction_Client'].mean()
 
 # Afficher les KPI dans Streamlit
-col1, col2, col3, col4 = st.columns([0.8,0.7,0.8,0.8] gap="large")  # Créer 3 colonnes pour afficher les KPI côte à côte
+col1, col2, col3, col4 = st.columns([0.8,0.7,0.8,0.8], gap="large")  # Créer 3 colonnes pour afficher les KPI côte à côte
 
 
 with col1:
