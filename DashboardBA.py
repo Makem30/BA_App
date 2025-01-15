@@ -44,7 +44,7 @@ st.markdown(
 )
 
 # Afficher les KPI dans les carrés
-col1, col2, col3 = st.columns(3)
+col1, col2, col3 = st.columns(4)
 
 with col1:
     with st.container():
