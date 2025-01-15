@@ -61,6 +61,8 @@ with col4:
     ) 
 #-------------------------------------------------------------------------------------------
 # Convertir la colonne 'date' en datetime
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+
 data['date'] = pd.to_datetime(data['date'])
 
 # Grouper les données par date et calculer les ventes totales quotidiennes
