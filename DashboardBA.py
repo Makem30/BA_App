@@ -28,6 +28,46 @@
     
 # with col4:
 #     st.metric(label="Total des ventes", value=f"{total_ventes:.2f} €")
+#-----------------------------------------------------------------------------------------
+st.markdown(
+    """
+    <style>
+    .metric-container {
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Afficher les KPI dans les carrés
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    with st.container():
+        st.markdown('<div class="metric-container">', unsafe_allow_html=True)
+        st.metric(label="Nombre total de transactions", value=nombre_total_transactions)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+with col2:
+    with st.container():
+        st.markdown('<div class="metric-container">', unsafe_allow_html=True)
+        st.metric(label="Montant moyen par transaction", value=f"{montant_moyen_transaction:.2f} €")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+with col3:
+    with st.container():
+        st.markdown('<div class="metric-container">', unsafe_allow_html=True)
+        st.metric(label="Satisfaction client moyenne", value=f"{satisfaction_client_moyenne:.2f} €")
+        st.markdown('</div>', unsafe_allow_html=True)
+with col4:
+    with st.container():
+        st.markdown('<div class="metric-container">', unsafe_allow_html=True)
+        st.metric(label="Total des ventes", value=f"{satisfaction_client_moyenne:.2f} €")
+        st.markdown('</div>', unsafe_allow_html=True)
 
 #-------------------------------------------------------------------------------------------
 import streamlit as st
@@ -41,7 +81,7 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 st.title("Dashboard Interactif des Performances de l'Entreprise")
 
 # Section Résumé
-st.header("Vue d'ensemble")
+st.header("Performances")
 total_ventes = data['Montant'].sum()
 total_transactions = data['ID_Client'].count()
 montant_moyen = data['Montant'].mean()
