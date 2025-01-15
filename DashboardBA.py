@@ -35,7 +35,8 @@ st.markdown(
 )
 
 # Afficher les KPI dans les carrés
-col1, col2, col3, col4 = st.columns(4)
+# col1, col2, col3, col4 = st.columns(4)
+col1, col2 = st.columns(2)
 
 
 with col1:
@@ -44,19 +45,19 @@ with col1:
         unsafe_allow_html=True,
     )
 
-with col2:
+# with col2:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">Montant moyen par transaction</div><div class="metric-value">{montant_moyen_transaction:.2f} €</div></div>',
         unsafe_allow_html=True,
     )
 
-with col3:
+with col2:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">Satisfaction client moyenne</div><div class="metric-value">{satisfaction_client_moyenne:.2f}</div></div>',
         unsafe_allow_html=True,
     )
 
-with col4:
+# with col4:
     st.markdown(
         f'<div class="metric-container"><div class="metric-label">total_ventes</div><div class="metric-value">{total_ventes:.2f}</div></div>',
         unsafe_allow_html=True,
