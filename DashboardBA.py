@@ -152,3 +152,29 @@ chart = alt.Chart(product_sales).mark_bar().encode(
 
 # Afficher le graphique sur Streamlit
 st.altair_chart(chart, use_container_width=True)
+#----------------------------------------------------------------------------------------
+# Liste des magasins uniques
+magasins = data['Magasin'].unique()
+
+# Sélection des magasins sur la sidebar
+selected_magasins = st.sidebar.multiselect('Sélectionnez un ou plusieurs magasins', magasins, default=magasins)
+
+# Filtrer les données pour les magasins sélectionnés
+filtered_data = data[data['Magasin'].isin(selected_magasins)]
+
+# Grouper les données par catégorie et magasin, puis calculer le total des ventes
+category_sales = filtered_data.groupby(['Categorie_Produit', 'Magasin'])['Montant'].sum().reset_index()
+
+# Créer le graphique empilé avec Altair
+chart = alt.Chart(category_sales).mark_bar().encode(
+    x='Categorie_Produit:N',
+    y='Montant:Q',
+    color='Magasin:N'
+).properties(
+    title='Montant des ventes par catégorie et magasin',
+    width=800,
+    height=400
+)
+
+# Afficher le graphique sur Streamlit
+st.altair_chart(chart, use_container_width=True)
