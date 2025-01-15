@@ -90,4 +90,10 @@ filtered_data = data[data['Magasin'] == selected_store]
 daily_sales = filtered_data.groupby('Date_Transaction')['Montant'].sum().reset_index()
 
 # Créer le graphique en courbe
-st.line_chart(daily_sales, x='date', y='sales')
+# st.line_chart(daily_sales, x='date', y='sales')
+chart = alt.Chart(daily_sales).mark_line().encode(
+    x='date:T',
+    y='tot_sales:Q'
+)
+
+st.altair_chart(chart, use_container_width=True)
