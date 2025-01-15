@@ -78,7 +78,7 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 
-col1, col2 = st.columns(2)
+
 # Charger les données
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
@@ -102,7 +102,8 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
     # Afficher le graphique sur Streamlit
     st.altair_chart(chart, use_container_width=True)   
 #------------------------------------------------------------------------------
-
+col1, col2 = st.columns(2)
+with col1:
     # Calculer le total des ventes par magasin
     sales_by_store = data.groupby('Magasin')['Montant'].sum().reset_index()
     
@@ -116,3 +117,13 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
     
     # Afficher le graphique sur Streamlit
     st.altair_chart(chart, use_container_width=True)
+
+with col2:
+    # Grouper les données par magasin et calculer les ventes totales et le nombre de transactions
+    store_sales = data.groupby('Store').agg(
+        Total_ventes=('Montant', 'sum'),
+        Nb_transactions=('Transaction_ID', 'nunique')
+    ).reset_index()
+    
+    # Afficher le tableau sur Streamlit
+    st.table(store_sales)
