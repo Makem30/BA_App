@@ -73,27 +73,35 @@ with col4:
 # st.line_chart(daily_sales, x='date', y='sales')
 #-------------------------------------------------------------------------------------
 
-# Graphique des ventes quotidiennes 
-# Convertir la colonne 'date' en datetime
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Charger les données
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+
+# Convertir la colonne 'Date_Transaction' en datetime
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
 
-# Obtenir la liste des magasins
-stores = data['Magasin'].unique()
+# Liste des magasins uniques
+magasins = data['Store'].unique()
 
-# Sélection du magasin dans la sidebar
-selected_store = st.sidebar.selectbox('Sélectionnez un magasin', stores)
+# Sélection du magasin sur la sidebar
+selected_magasin = st.sidebar.selectbox('Sélectionnez un magasin', magasins)
 
 # Filtrer les données pour le magasin sélectionné
-filtered_data = data[data['Magasin'] == selected_store]
+filtered_data = data[data['Store'] == selected_magasin]
 
-# Grouper les données par date et calculer les ventes totales quotidiennes
-daily_sales = filtered_data.groupby('Date_Transaction')['Montant'].sum().reset_index()
+# Grouper les données par date et calculer le total des ventes pour chaque jour
+daily_sales = filtered_data.groupby('Date_Transaction')['Montant'].sum()
 
-# Créer le graphique en courbe
-# st.line_chart(daily_sales, x='date', y='sales')
-chart = alt.Chart(daily_sales).mark_line().encode(
-    x='date:T',
-    y='tot_sales:Q'
-)
+# Créer le graphique
+fig, ax = plt.subplots()
+ax.plot(daily_sales.index, daily_sales.values)
+ax.set_xlabel('Date')
+ax.set_ylabel('Ventes')
+ax.set_title(f'Ventes quotidiennes pour le magasin {selected_magasin}')
+ax.grid(True)
 
-st.altair_chart(chart, use_container_width=True)
+# Afficher le graphique sur Streamlit
+st.pyplot(fig)
