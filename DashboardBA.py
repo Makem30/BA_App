@@ -32,11 +32,10 @@
 #-------------------------------------------------------------------------------------------
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import altair as alt
 
 # Charger les données
-data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+data = pd.read_csv('data_dashboard_large.csv')
 
 # Titre du dashboard
 st.title("Dashboard Interactif des Performances de l'Entreprise")
@@ -56,45 +55,102 @@ st.metric("Satisfaction client moyenne", f"{satisfaction_moyenne:.2f}")
 # Graphique des ventes quotidiennes
 st.subheader("Ventes quotidiennes")
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
-ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum()
-st.line_chart(ventes_quotidiennes)
+ventes_quotidiennes = data.groupby(data['Date_Transaction'].dt.date)['Montant'].sum().reset_index()
+chart_ventes_quotidiennes = alt.Chart(ventes_quotidiennes).mark_line().encode(
+    x='Date_Transaction:T',
+    y='Montant:Q'
+).properties(
+    title='Ventes quotidiennes'
+)
+st.altair_chart(chart_ventes_quotidiennes, use_container_width=True)
 
 # Analyse par magasin
 st.header("Analyse par magasin")
-ventes_par_magasin = data.groupby('Magasin')['Montant'].sum()
-st.bar_chart(ventes_par_magasin)
+ventes_par_magasin = data.groupby('Magasin')['Montant'].sum().reset_index()
+chart_ventes_par_magasin = alt.Chart(ventes_par_magasin).mark_bar().encode(
+    x='Magasin:N',
+    y='Montant:Q'
+).properties(
+    title='Ventes par magasin'
+)
+st.altair_chart(chart_ventes_par_magasin, use_container_width=True)
 
-transactions_par_magasin = data.groupby('Magasin')['ID_Client'].count()
-st.bar_chart(transactions_par_magasin)
+transactions_par_magasin = data.groupby('Magasin')['ID_Client'].count().reset_index()
+chart_transactions_par_magasin = alt.Chart(transactions_par_magasin).mark_bar().encode(
+    x='Magasin:N',
+    y='ID_Client:Q'
+).properties(
+    title='Transactions par magasin'
+)
+st.altair_chart(chart_transactions_par_magasin, use_container_width=True)
 
 # Analyse des catégories de produits
 st.header("Analyse des catégories de produits")
-quantites_par_categorie = data.groupby('Categorie_Produit')['Quantite'].sum()
-st.bar_chart(quantites_par_categorie)
+quantites_par_categorie = data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
+chart_quantites_par_categorie = alt.Chart(quantites_par_categorie).mark_bar().encode(
+    x='Categorie_Produit:N',
+    y='Quantite:Q'
+).properties(
+    title='Quantités vendues par catégorie'
+)
+st.altair_chart(chart_quantites_par_categorie, use_container_width=True)
 
-ventes_par_categorie_magasin = data.groupby(['Categorie_Produit', 'Magasin'])['Montant'].sum().unstack()
-st.bar_chart(ventes_par_categorie_magasin)
+ventes_par_categorie_magasin = data.groupby(['Categorie_Produit', 'Magasin'])['Montant'].sum().reset_index()
+chart_ventes_par_categorie_magasin = alt.Chart(ventes_par_categorie_magasin).mark_bar().encode(
+    x='Categorie_Produit:N',
+    y='Montant:Q',
+    color='Magasin:N'
+).properties(
+    title='Ventes par catégorie et magasin'
+)
+st.altair_chart(chart_ventes_par_categorie_magasin, use_container_width=True)
 
 # Analyse des modes de paiement
 st.header("Analyse des modes de paiement")
-transactions_par_mode = data['Mode_Paiement'].value_counts()
-st.pie_chart(transactions_par_mode)
+transactions_par_mode = data['Mode_Paiement'].value_counts().reset_index()
+transactions_par_mode.columns = ['Mode_Paiement', 'Nombre']
+chart_transactions_par_mode = alt.Chart(transactions_par_mode).mark_arc().encode(
+    theta='Nombre:Q',
+    color='Mode_Paiement:N'
+).properties(
+    title='Répartition des transactions par mode de paiement'
+)
+st.altair_chart(chart_transactions_par_mode, use_container_width=True)
 
-mode_paiement_populaire = transactions_par_mode.idxmax()
+mode_paiement_populaire = transactions_par_mode.iloc[0]['Mode_Paiement']
 st.metric("Mode de paiement le plus utilisé", mode_paiement_populaire)
 
 # Analyse de la satisfaction client
 st.header("Analyse de la satisfaction client")
-satisfaction_par_magasin = data.groupby('Magasin')['Satisfaction_Client'].mean()
-st.bar_chart(satisfaction_par_magasin)
+satisfaction_par_magasin = data.groupby('Magasin')['Satisfaction_Client'].mean().reset_index()
+chart_satisfaction_par_magasin = alt.Chart(satisfaction_par_magasin).mark_bar().encode(
+    x='Magasin:N',
+    y='Satisfaction_Client:Q'
+).properties(
+    title='Satisfaction par magasin'
+)
+st.altair_chart(chart_satisfaction_par_magasin, use_container_width=True)
 
-satisfaction_par_categorie = data.groupby('Categorie_Produit')['Satisfaction_Client'].mean()
-st.bar_chart(satisfaction_par_categorie)
+satisfaction_par_categorie = data.groupby('Categorie_Produit')['Satisfaction_Client'].mean().reset_index()
+chart_satisfaction_par_categorie = alt.Chart(satisfaction_par_categorie).mark_bar().encode(
+    x='Categorie_Produit:N',
+    y='Satisfaction_Client:Q'
+).properties(
+    title='Satisfaction par catégorie'
+)
+st.altair_chart(chart_satisfaction_par_categorie, use_container_width=True)
 
 # Distribution des scores de satisfaction
 st.subheader("Distribution des scores de satisfaction")
-satisfaction_distribution = data['Satisfaction_Client'].value_counts().sort_index()
-st.bar_chart(satisfaction_distribution)
+satisfaction_distribution = data['Satisfaction_Client'].value_counts().reset_index()
+satisfaction_distribution.columns = ['Score', 'Nombre']
+chart_satisfaction_distribution = alt.Chart(satisfaction_distribution).mark_bar().encode(
+    x='Score:N',
+    y='Nombre:Q'
+).properties(
+    title='Distribution des scores de satisfaction'
+)
+st.altair_chart(chart_satisfaction_distribution, use_container_width=True)
 
 # Filtres dynamiques
 st.sidebar.header("Filtres")
