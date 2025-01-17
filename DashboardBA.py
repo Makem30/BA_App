@@ -181,7 +181,6 @@ st.altair_chart(chart, use_container_width=True)
 #-----------------------------------------------------------------------------------
 # Liste des catégories de produits uniques
 categories = data['Categorie_Produit'].unique()
-
 # Sélection de la catégorie sur la sidebar
 selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
 
@@ -195,4 +194,4 @@ product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().res
 top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
 
 # Afficher le tableau sur Streamlit
-st.table(top_products) 
+st.table(top_products)
