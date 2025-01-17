@@ -189,14 +189,16 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 categories = data['Categorie_Produit'].unique().tolist()  # Convertir en liste
 
 # Sélection de la catégorie sur la sidebar
-selected_category = st.radio('Sélectionnez une catégorie de produit', categories)
+selected_categories = st.multiselect('Sélectionnez une ou plusieurs catégories de produit', categories)
+   # Adapter le reste du code pour gérer une liste de catégories sélectionnées
+# selected_category = st.radio('Sélectionnez une catégorie de produit', categories)
 
 # Filtrer les données pour la catégorie sélectionnée
 filtered_data = data[data['Categorie_Produit'] == selected_category]
 
 # Grouper par produit, puis calculer la quantité vendue
 # Remplacez 'Quantity' et 'Product' par les noms de colonnes corrects si nécessaire
-product_sales = filtered_data.groupby('Montant')['Quantite'].sum().reset_index()
+product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
 
 # Trier par quantité vendue et obtenir le top 5
 top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
