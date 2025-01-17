@@ -189,9 +189,7 @@ data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 categories = data['Categorie_Produit'].unique().tolist()  # Convertir en liste
 
 # Sélection de la catégorie sur la sidebar
-selected_categories = st.multiselect('Sélectionnez une ou plusieurs catégories de produit', categories)
-   # Adapter le reste du code pour gérer une liste de catégories sélectionnées
-# selected_category = st.radio('Sélectionnez une catégorie de produit', categories)
+selected_category = st.radio('Sélectionnez une catégorie de produit', categories)
 
 # Filtrer les données pour la catégorie sélectionnée
 filtered_data = data[data['Categorie_Produit'] == selected_category]
