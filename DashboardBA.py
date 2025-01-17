@@ -203,3 +203,18 @@ top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
 
 # Afficher le tableau sur Streamlit
 st.table(top_products)
+#-------------------------------------------------------------------------------------------
+# Calculer le nombre de transactions par mode de paiement
+payment_counts = data["Mode_Paiement"].value_counts().reset_index()
+payment_counts.columns = ["Mode_Paiement", "Montant"]  # Renommer les colonnes
+
+# Créer le graphique en secteurs avec Altair
+chart = alt.Chart(payment_counts).mark_arc().encode(
+    theta="Montant:Q",  # Angle des secteurs basé sur le nombre de transactions
+    color="Mode_Paiement:N"  # Couleur des secteurs basé sur le mode de paiement
+).properties(
+    title="Répartition des transactions par mode de paiement"
+)
+
+# Afficher le graphique sur Streamlit
+st.altair_chart(chart, use_container_width=True)
