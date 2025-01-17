@@ -196,7 +196,8 @@ filtered_data = data[data['Categorie_Produit'] == selected_category]
 
 # Grouper par produit, puis calculer la quantité vendue
 # Remplacez 'Quantity' et 'Product' par les noms de colonnes corrects si nécessaire
-product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
+# product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
+product_sales = filtered_data.groupby('Quantite').sum().reset_index()
 
 # Trier par quantité vendue et obtenir le top 5
 top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
