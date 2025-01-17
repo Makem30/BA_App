@@ -180,6 +180,8 @@ chart = alt.Chart(category_sales).mark_bar().encode(
 st.altair_chart(chart, use_container_width=True)
 #-----------------------------------------------------------------------------------
 # Liste des catégories de produits uniques
+data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+
 categories = data['Categorie_Produit'].unique()
 # Sélection de la catégorie sur la sidebar
 selected_Categorie_Produit = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
