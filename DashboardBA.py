@@ -204,17 +204,26 @@ top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
 # Afficher le tableau sur Streamlit
 st.table(top_products)
 #-------------------------------------------------------------------------------------------
+col1, col2 = st.columns(2)
 # Calculer le nombre de transactions par mode de paiement
-payment_counts = data["Mode_Paiement"].value_counts().reset_index()
-payment_counts.columns = ["Mode_Paiement", "Montant"]  # Renommer les colonnes
-
-# Créer le graphique en secteurs avec Altair
-chart = alt.Chart(payment_counts).mark_arc().encode(
-    theta="Montant:Q",  # Angle des secteurs basé sur le nombre de transactions
-    color="Mode_Paiement:N"  # Couleur des secteurs basé sur le mode de paiement
-).properties(
-    title="Répartition des transactions par mode de paiement"
-)
-
-# Afficher le graphique sur Streamlit
-st.altair_chart(chart, use_container_width=True)
+with col1:
+    payment_counts = data["Mode_Paiement"].value_counts().reset_index()
+    payment_counts.columns = ["Mode_Paiement", "Montant"]  # Renommer les colonnes
+    
+    # Créer le graphique en secteurs avec Altair
+    chart = alt.Chart(payment_counts).mark_arc().encode(
+        theta="Montant:Q",  # Angle des secteurs basé sur le nombre de transactions
+        color="Mode_Paiement:N"  # Couleur des secteurs basé sur le mode de paiement
+    ).properties(
+        title="Répartition des transactions par mode de paiement"
+    )
+    
+    # Afficher le graphique sur Streamlit
+    st.altair_chart(chart, use_container_width=True)
+#---------------------------------------------------------------------------------
+# Trouver le mode de paiement le plus utilisé
+with col2:
+    most_used_payment = data["Mode_Paiement"].mode()[0]
+    
+    # Afficher le KPI
+    st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
