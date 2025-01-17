@@ -228,11 +228,27 @@ with col2:
     # # Afficher le KPI
     # st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
 
-    st.markdown(
-            most_used_payment = data["Mode_Paiement"].mode()[0]
-        
-        # Afficher le KPI
-            st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
-            f'<div class="metric-container"><div class="metric-label">Mode de paiement le plus utilisé</div><div class="metric-value">{Mode de paiement le plus utilisé}</div></div>',
-            unsafe_allow_html=True,
-        )
+   # Trouver le mode de paiement le plus utilisé
+most_used_payment = data["Mode_Paiement"].mode()[0]
+
+# Définir le style CSS pour le rectangle et le centrage
+st.markdown(
+    """
+    <style>
+    .kpi-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center; /* Centre le texte à l'intérieur du rectangle */
+        margin: 0 auto; /* Centre le rectangle horizontalement */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+# Afficher le KPI dans le rectangle
+with st.container():  # Crée un conteneur pour le rectangle
+    st.markdown('<div class="kpi-container">', unsafe_allow_html=True)
+    st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
+    st.markdown('</div>', unsafe_allow_html=True)
