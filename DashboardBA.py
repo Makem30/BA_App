@@ -204,7 +204,8 @@ top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
 # Afficher le tableau sur Streamlit
 st.table(top_products)
 #-------------------------------------------------------------------------------------------
-col1, col2 = st.columns(2)
+# col1, col2 = st.columns(2)
+col1, col2 = st.columns([0.5,1],gap="large")
 # Calculer le nombre de transactions par mode de paiement
 with col1:
     payment_counts = data["Mode_Paiement"].value_counts().reset_index()
