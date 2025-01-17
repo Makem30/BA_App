@@ -271,3 +271,14 @@ chart = alt.Chart(satisfaction_mean).mark_bar().encode(
 
 # Afficher le graphique sur Streamlit
 st.altair_chart(chart, use_container_width=True)
+#-------------------------------------------------------------------------------------------
+# Calculer la distribution des scores de satisfaction
+satisfaction_distribution = data["Satisfaction_Client"].value_counts().sort_index()
+
+# Créer un DataFrame pour le tableau
+satisfaction_df = pd.DataFrame(
+    {"Score de satisfaction": satisfaction_distribution.index, "Nombre de clients": satisfaction_distribution.values}
+)
+
+# Afficher le tableau sur Streamlit
+st.table(satisfaction_df)
