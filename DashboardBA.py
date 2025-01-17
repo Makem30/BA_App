@@ -179,21 +179,27 @@ chart = alt.Chart(category_sales).mark_bar().encode(
 # Afficher le graphique sur Streamlit
 st.altair_chart(chart, use_container_width=True)
 #-----------------------------------------------------------------------------------
-# Liste des catégories de produits uniques
+import streamlit as st
+import pandas as pd
+
+# Charger les données
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
-categories = data['Categorie_Produit'].unique()
+# Liste des catégories de produits uniques
+categories = data['Category'].unique().tolist()  # Convertir en liste
+
 # Sélection de la catégorie sur la sidebar
-selected_Categorie_Produit = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
+selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
 
 # Filtrer les données pour la catégorie sélectionnée
-filtered_data = data[data['Categorie_Produit'] == selected_Categorie_Produit]
+filtered_data = data[data['Category'] == selected_category]
 
 # Grouper par produit, puis calculer la quantité vendue
-product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
+# Remplacez 'Quantity' et 'Product' par les noms de colonnes corrects si nécessaire
+product_sales = filtered_data.groupby('Product')['Quantity'].sum().reset_index()
 
 # Trier par quantité vendue et obtenir le top 5
-top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
+top_products = product_sales.sort_values('Quantity', ascending=False).head(5)
 
 # Afficher le tableau sur Streamlit
 st.table(top_products)
