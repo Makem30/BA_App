@@ -77,13 +77,13 @@ with col4:
 # st.line_chart(daily_sales, x='date', y='sales')
 #-------------------------------------------------------------------------------------
 
-import streamlit as st
-import pandas as pd
-import altair as alt
+# import streamlit as st
+# import pandas as pd
+# import altair as alt
 
 
-# Charger les données
-data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
+# # Charger les données
+# data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
  # Convertir la colonne 'Date_Transaction' en datetime
 data['Date_Transaction'] = pd.to_datetime(data['Date_Transaction'])
