@@ -61,7 +61,7 @@ with col3:
 
 with col4:
     st.markdown(
-        f'<div class="metric-container"><div class="metric-label">total_ventes</div><div class="metric-value">{total_ventes:.2f} €</div></div>',
+        f'<div class="metric-container"><div class="metric-label">total_ventes</div><div class="metric-value">{total_ventes:.2f}€</div></div>',
         unsafe_allow_html=True,
     ) 
 #-------------------------------------------------------------------------------------------
