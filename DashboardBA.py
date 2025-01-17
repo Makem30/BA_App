@@ -261,7 +261,7 @@ satisfaction_mean = data.groupby(["Magasin", "Categorie_Produit"])["Satisfaction
 # Créer le graphique à barres avec Altair
 chart = alt.Chart(satisfaction_mean).mark_bar().encode(
     x="Categorie_Produit:N",  # Catégorie sur l'axe des x
-    y="mean(Satisfaction_Client):Q",  # Moyenne de satisfaction sur l'axe des y
+    y="Moyenne (Satisfaction_Client):Q",  # Moyenne de satisfaction sur l'axe des y
     color="Magasin:N"  # Couleur des barres en fonction du magasin
 ).properties(
     title="Moyenne de satisfaction par magasin et catégorie de produit",
