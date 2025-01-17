@@ -195,4 +195,4 @@ product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().res
 top_products = product_sales.sort_values('Quantite', ascending=False).head(5)
 
 # Afficher le tableau sur Streamlit
-st.table(top_products)
+st.table(top_products) 
