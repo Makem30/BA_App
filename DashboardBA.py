@@ -253,3 +253,21 @@ with col2:
         st.markdown('<div class="kpi-container">', unsafe_allow_html=True)
         st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
         st.markdown('</div>', unsafe_allow_html=True)
+
+#-----------------------------------------------------------------------------------
+# Calculer la moyenne de satisfaction par magasin et catégorie
+satisfaction_mean = data.groupby(["Magasin", "Categorie_Produit"])["Satisfaction_Client"].mean().reset_index()
+
+# Créer le graphique à barres avec Altair
+chart = alt.Chart(satisfaction_mean).mark_bar().encode(
+    x="Categorie_Produit:N",  # Catégorie sur l'axe des x
+    y="mean(Satisfaction_Client):Q",  # Moyenne de satisfaction sur l'axe des y
+    color="Magasin:N"  # Couleur des barres en fonction du magasin
+).properties(
+    title="Moyenne de satisfaction par magasin et catégorie de produit",
+    width=800,  # Ajuster la largeur selon vos besoins
+    height=400  # Ajuster la hauteur selon vos besoins
+)
+
+# Afficher le graphique sur Streamlit
+st.altair_chart(chart, use_container_width=True)
