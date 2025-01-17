@@ -223,7 +223,16 @@ with col1:
 #---------------------------------------------------------------------------------
 # Trouver le mode de paiement le plus utilisé
 with col2:
-    most_used_payment = data["Mode_Paiement"].mode()[0]
+    # most_used_payment = data["Mode_Paiement"].mode()[0]
     
-    # Afficher le KPI
-    st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
+    # # Afficher le KPI
+    # st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
+
+    st.markdown(
+            most_used_payment = data["Mode_Paiement"].mode()[0]
+        
+        # Afficher le KPI
+            st.metric(label="Mode de paiement le plus utilisé", value=most_used_payment)
+            f'<div class="metric-container"><div class="metric-label">Mode de paiement le plus utilisé</div><div class="metric-value">{Mode de paiement le plus utilisé}</div></div>',
+            unsafe_allow_html=True,
+        )
