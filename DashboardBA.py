@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import altair as alt
+
+with st.sidebar:
+    st.title('DASHBOARD')
 data = pd.read_csv('data_dashboard_large - data_dashboard_large.csv')
 
 #-----------------------------------------------------------------------------------------------
