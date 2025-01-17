@@ -182,10 +182,10 @@ st.altair_chart(chart, use_container_width=True)
 # Liste des catégories de produits uniques
 categories = data['Categorie_Produit'].unique()
 # Sélection de la catégorie sur la sidebar
-selected_category = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
+selected_Categorie_Produit = st.sidebar.selectbox('Sélectionnez une catégorie de produit', categories)
 
 # Filtrer les données pour la catégorie sélectionnée
-filtered_data = data[data['Categorie_Produit'] == selected_category]
+filtered_data = data[data['Categorie_Produit'] == selected_Categorie_Produit]
 
 # Grouper par produit, puis calculer la quantité vendue
 product_sales = filtered_data.groupby('Categorie_Produit')['Quantite'].sum().reset_index()
